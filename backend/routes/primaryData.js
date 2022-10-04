@@ -92,4 +92,17 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
+//DELETE person by ID -- Jason Lu 10/3/2022 9:44 PM
+router.delete('/:id', (req, res, next) => {
+    //mongoose will use _id of document
+    primarydata.findOneAndRemove({ _id: req.params.id }, (error, data) => {
+        if (error) {
+            return next(error);
+        } else {
+            res.status(200).json({
+                msg: data
+            });
+        }
+    });
+});
 module.exports = router;

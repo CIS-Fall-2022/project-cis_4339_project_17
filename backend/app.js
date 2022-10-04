@@ -39,17 +39,17 @@ app.use('/eventData', eventsDataRoute)
 
 //Setting up main routes
 //Clients data route
-const clientsDataRoute = require('./routes/clientsData')
-app.use('/clientsData', clientsDataRoute)
+const clientsDataRouter = require('./routes/clientsData')
+app.use('/clientsData', clientsDataRouter)
 //Events data route
-const eventsDataRoute = require('./routes/eventsData')
-app.use('/eventsData', eventsDataRoute)
+const eventsDataRouter = require('./routes/eventsData')
+app.use('/eventsData', eventsDataRouter)
 //Intake data route
-const intakesRoute = require('./routes/intakes')
-app.use('/intakes', intakesRoute)
+const intakesRouter = require('./routes/intakes')
+app.use('/intakes', intakesRouter)
 //Organization route
-const organizationRoute = require('./routes/organization')
-app.use('/organization', organizationRoute)
+const organizationRouter = require('./routes/organization')
+app.use('/organization', organizationRouter)
 
 
 app.listen(PORT, () => {

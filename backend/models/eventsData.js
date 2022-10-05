@@ -16,6 +16,10 @@ let eventsSchema = new Schema({
         type: Number,
         required: true
     },
+    event_name: {
+        type: String,
+        required: true
+    },
     organization_id:{
         type: Number,
         required: true
@@ -52,23 +56,22 @@ let eventsSchema = new Schema({
         },
         zip: {
             type: String,
-        },
+        }},
         //Make an array to allow the client to input multiple attendees
-        attendee: [{
-            last_name: {
-                type: String,
-            },
-            first_name: {
-                type: String
-            },
-            gender: {
-                type: String
-            },
-            phone_number: {
-                type: String,
-            },
-        }],
-    },
+    attendee: [{    
+        last_name: {
+            type: String,
+        },
+        first_name: {
+            type: String
+        },
+        gender: {
+            type: String
+        },
+        phone_number: {
+            type: String,
+        }
+    }],
 },
     {
         collection: 'eventsData'

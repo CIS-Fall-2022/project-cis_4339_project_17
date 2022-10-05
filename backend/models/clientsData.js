@@ -15,7 +15,6 @@ let clientsSchema = new Schema({
     },
     organization_id: {
         type: Number,
-        unique: false,
         required: true
     },
     last_name: {
@@ -43,19 +42,10 @@ let clientsSchema = new Schema({
 
     //Embedded contact information
     contact: {
-        work_number: {
+        primaryNumber: {
             type: String
-        },
-        home_number: {
-            type: String,
-        },
-        cell_number: {
-            type: String,
         },
         email: {
-            type: String
-        },
-        other_email: {
             type: String
         },
         address_1: {
@@ -161,4 +151,3 @@ let clientsSchema = new Schema({
 const clientsdata = mongoose.model('clientsData', clientsSchema);
 //    creating the applicant collection and adding the schemas in the database.
 module.exports = { clientsdata }
-

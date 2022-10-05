@@ -21,7 +21,7 @@ let eventsSchema = new Schema({
         required: true
     },
     event_date: {
-        type: Date
+        type: String,
     },
     //Make an array so that the client can input multiple activities
     activity: [{ 
@@ -29,10 +29,10 @@ let eventsSchema = new Schema({
             type: String,
         },
         start_time: {
-            type: Date,
+            type: String,
         },
         end_time: {
-            type: Date,
+            type: String,
         },
         note: {
             type: String,
@@ -51,7 +51,7 @@ let eventsSchema = new Schema({
             type: String,
         },
         zip: {
-            type: Number,
+            type: String,
         },
         //Make an array to allow the client to input multiple attendees
         attendee: [{
@@ -65,7 +65,7 @@ let eventsSchema = new Schema({
                 type: String
             },
             phone_number: {
-                type: Number,
+                type: String,
             },
         }],
     },
@@ -73,7 +73,7 @@ let eventsSchema = new Schema({
     {
         collection: 'eventsData'
     });
- //    creating the applicant collection and adding the schemas in the database.
-module.exports = mongoose.model('eventsData', eventsSchema)
-
-
+// create models from mongoose schemas
+const eventsdata = mongoose.model('eventsData', eventsSchema);
+//    creating the applicant collection and adding the schemas in the database.
+module.exports = { eventsdata }

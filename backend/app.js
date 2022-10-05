@@ -38,7 +38,7 @@ const organizationRoute = require('./routes/organization');
 
 //setup middle ware for routes
 app.use('/primaryData', primaryDataRoute);
-app.use('/eventData', eventsDataRoute)
+app.use('/eventsData', eventsDataRoute)
 app.use('/clientsData', clientsDataRoute)
 app.use('/organization', organizationRoute)
 

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan"); //better debugging
 const cors = require("cors");
 //allow using a .env file
-require("dotenv").config();   
+require("dotenv").config();
 
 //creates a new instance of express application
 const app = express();
@@ -31,12 +31,14 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //import routes
-const primaryDataRoute  = require('./routes/primaryData');
-const eventsDataRoute  = require('./routes/eventsData');
+const primaryDataRoute = require('./routes/primaryData');
+const eventsDataRoute = require('./routes/eventsData');
+const clientsDataRoute = require('./routes/clientsData');
 
 //setup middle ware for routes
 app.use('/primaryData', primaryDataRoute);
 app.use('/eventData', eventsDataRoute)
+app.use('/clientsData', clientsDataRoute)
 
 app.listen(PORT, () => {
   console.log("Server started listening on port : ", PORT);

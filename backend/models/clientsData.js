@@ -13,15 +13,15 @@ let clientsSchema = new Schema({
         unique: true,
         required: true
     },
-    organization_id:{
+    organization_id: {
         type: Number,
-        unique: true,
+        unique: false,
         required: true
     },
     last_name: {
-        type: String,       
+        type: String,
     },
-    first_name: { 
+    first_name: {
         type: String,
     },
     gender: {
@@ -31,7 +31,7 @@ let clientsSchema = new Schema({
         type: String,
     },
     birthday: {
-        type: Date,
+        type: String,
     },
     ethnicity: {
         type: String,
@@ -39,22 +39,18 @@ let clientsSchema = new Schema({
     ssn: {
         type: String,
     },
-    date_added: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
+
 
     //Embedded contact information
     contact: {
         work_number: {
-            type: Number,
+            type: String
         },
-        home_number: { 
-            type: Number,
+        home_number: {
+            type: String,
         },
         cell_number: {
-            type: Number,
+            type: String,
         },
         email: {
             type: String
@@ -82,38 +78,38 @@ let clientsSchema = new Schema({
 
     // Embedded health in clients collection
     health: {
-        height : {
+        height: {
             type: Number
         },
-        weight : {
+        weight: {
             type: Number
         },
         //Allows clients to add multiple insurance
-        insurance : [{
+        insurance: [{
             has_insurance: {
-                type: Boolean
+                type: String
             },
             insurance_provider: {
                 type: String
             },
             member_id: {
                 type: String
-            }             
+            }
         }],
-        vaccination_status : {
+        vaccination_status: {
             type: String
         },
-        pregnancy_status : {
+        pregnancy_status: {
             type: String
-        },      
+        },
     },
-    
-     //Embedded income information in clients collection
-     income: {
+
+    //Embedded income information in clients collection
+    income: {
         household_size: {
             type: Number,
         },
-        monthly_income: { 
+        monthly_income: {
             type: Number,
         },
         other_income: {
@@ -126,7 +122,7 @@ let clientsSchema = new Schema({
             type: Number
         },
     },
-    
+
     // Embedded education
     education: {
         highest_completed: {
@@ -134,7 +130,7 @@ let clientsSchema = new Schema({
         },
         //Make an array to allow clients to add multiple schools
         school: [{
-            school_name: { 
+            school_name: {
                 type: String,
             },
             school_address: {
@@ -154,11 +150,15 @@ let clientsSchema = new Schema({
             type: String
         },
     },
-    
+
 },
     {
-        collection: 'clientsData'
+        collection: 'clientsData',
+        timestamps: true
     });
- //    creating the applicant collection and adding the schemas in the database.
-module.exports = mongoose.model('clientsData', clientsSchema)
+
+// create models from mongoose schemas
+const clientsdata = mongoose.model('clientsData', clientsSchema);
+//    creating the applicant collection and adding the schemas in the database.
+module.exports = { clientsdata }
 

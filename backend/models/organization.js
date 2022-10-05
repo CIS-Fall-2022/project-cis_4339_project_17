@@ -24,7 +24,8 @@ let organizationSchema = new Schema({
     },
 },
     {
-        collection: 'organization'
+        collection: 'organization',
+        timestamps: true
     });
 // create models from mongoose schemas
 const organization = mongoose.model('organization', organizationSchema);

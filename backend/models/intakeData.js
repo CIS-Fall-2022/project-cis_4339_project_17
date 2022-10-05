@@ -12,7 +12,7 @@ let intakeSchema = new Schema({
         type: Number,
         required: true,
     },
-    organization_id:{
+    organization_id: {
         type: Number,
         required: true
     },
@@ -25,21 +25,17 @@ let intakeSchema = new Schema({
         required: true
     },
     start_date: {
-        type: Date,
+        type: String,
     },
     end_date: {
-        type: Date,
-    },
-    modify_time: {
-        type: Date,
-        required: true,
-        default: Date.now,
+        type: String,
     },
 },
     {
-        collection: 'intakeData'
+        collection: 'intakeData',
+        timestamps: true
     });
- //    creating the applicant collection and adding the schemas in the database.
-module.exports = mongoose.model('intakeData', intakeSchema)
 
-
+const intakedata = mongoose.model('intakeData', intakeSchema);
+//    creating the applicant collection and adding the schemas in the database.
+module.exports = { intakedata }

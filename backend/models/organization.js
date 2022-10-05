@@ -8,7 +8,7 @@ let organizationSchema = new Schema({
         type: String,
         default: uuid.v1
     },
-    organization_id:{
+    organization_id: {
         type: Number,
         required: true
     },
@@ -26,7 +26,10 @@ let organizationSchema = new Schema({
     {
         collection: 'organization'
     });
- //    creating the applicant collection and adding the schemas in the database.
-module.exports = mongoose.model('organization', organizationSchema)
+// create models from mongoose schemas
+const organization = mongoose.model('organization', organizationSchema);
+
+//    creating the applicant collection and adding the schemas in the database.
+module.exports = { organization }
 
 

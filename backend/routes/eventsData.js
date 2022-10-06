@@ -1,4 +1,4 @@
-// Version 1.1
+// Version 1.1 Everything Working -- Jason Lu
 const express = require("express");
 const router = express.Router();
 
@@ -104,8 +104,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
             return next(error);
         }
         else {
-            res.send('Attendee added');
-            console.log('Attendee added')
+            res.json(data);
         }
     });
 });

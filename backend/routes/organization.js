@@ -24,7 +24,11 @@ router.get("/id/:id", (req, res, next) => {
         (error, data) => {
             if (error) {
                 return next(error);
-            } else {
+            }
+            else if (data === null) {
+                res.status(404).send('Organization ID Not Found. Confirm Organization ID.');
+            }
+            else {
                 res.json(data);
             }
         }
@@ -39,13 +43,51 @@ router.post("/", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.send('Organization Successfully Added');
+                console.log('Organization Successfully Added')
+                //res.json(data);
             }
         }
     );
     organization.createdAt;
     organization.updatedAt;
     organization.createdAt instanceof Date;
+});
+
+//PUT update (make sure req body doesn't have the id)
+router.put("/:id", (req, res, next) => {
+    organization.findOneAndUpdate(
+        { organization_id: req.params.id },
+        req.body,
+        (error, data) => {
+            if (error) {
+                return next(error);
+            }
+            else if (data === null) {
+                res.status(404).send('Organization ID Not Found. Confirm Organization ID.');
+            }
+            else {
+                res.send('Organization Successfully Updated');
+                console.log('Organization Successfully Updated');
+            }
+        }
+    );
+});
+
+router.delete('/:id', (req, res, next) => {
+    //mongoose will use id of organization
+    organization.findOneAndRemove({ organization_id: req.params.id }, (error, data) => {
+        if (error) {
+            return next(error);
+        }
+        else if (data === null) {
+            res.status(404).send('Organization ID Not Found. Confirm Organization ID.');
+        }
+        else {
+            res.send('Organization Successfully Deleted');
+            console.log('Organization Successfully Deleted');
+        }
+    });
 });
 
 module.exports = router;

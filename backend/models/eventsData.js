@@ -58,7 +58,10 @@ let eventsSchema = new Schema({
             type: String,
         }},
         //Make an array to allow the client to input multiple attendees
-    attendee: [{    
+    attendee: [{ 
+        attendee_id: {
+            type: Number
+        },   
         last_name: {
             type: String,
         },

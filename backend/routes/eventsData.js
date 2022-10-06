@@ -1,5 +1,6 @@
-// Version 1.3 Everything Working -- Jason Lu
+// Version 1.4 Everything Working -- Jason Lu
 // All routes working
+// Graph backend not working
 // Improved Console Logs and Errors
 
 const express = require("express");
@@ -18,7 +19,7 @@ router.get("/", (req, res, next) => {
                 res.json(data);
             }
         }
-    ).sort({ 'updatedAt': -1 }).limit(10);
+    ).sort({ 'updatedAt': -1 }).limit(9999999);
 });
 
 //GET single entry by ID
@@ -81,7 +82,7 @@ router.get("/client/:id", (req, res, next) => {
 router.post("/", (req, res, next) => { 
     eventsdata.create( 
         req.body, 
-        (error, data) => { 
+        (error) => { 
             if (error) {
                 return next(error);
             } 
@@ -133,6 +134,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
     });
 });
 
+
 //DELETE event by ID -- Jason Lu 10/5/2022 5:13 AM
 router.delete('/:id', (req, res, next) => {
     eventsdata.findOneAndRemove({ event_id: req.params.id }, (error, data) => {
@@ -149,4 +151,26 @@ router.delete('/:id', (req, res, next) => {
     });
 });
 
+
+// **We could not get the graph backend to be functional.
+// **We will attempt to fix this for the frontend.
+
+// //GET for Graph Data
+// router.get('/total/:id', (req, res, next) => {
+//     eventsdata.aggregate([
+//         { $match: { event_id: req.params.id } },
+//         { $project: { _id: 0, event_id : 1} },
+//         { $group: { _id: "$attendee.attendee_id" } }, //only distinct
+//         { $count: "total" }
+//         // instead of $count could also use:
+//         //{ $group: { _id: null, myCount: { $sum: 1 } } },
+//         //{ $project: { _id: 0 } }
+//     ], (error, data) => {
+//         if (error) {
+//             return next(error)
+//         } else {
+//             res.json(data);
+//         }
+//     });
+// });
 module.exports = router;

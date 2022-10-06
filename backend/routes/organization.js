@@ -24,7 +24,11 @@ router.get("/id/:id", (req, res, next) => {
         (error, data) => {
             if (error) {
                 return next(error);
-            } else {
+            }
+            else if (data === null) {
+                res.status(404).send('Organization ID Not Found. Confirm Organization ID.');
+            }
+            else {
                 res.json(data);
             }
         }
@@ -39,7 +43,9 @@ router.post("/", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.send('Organization Successfully Added');
+                console.log('Organization Successfully Added')
+                //res.json(data);
             }
         }
     );

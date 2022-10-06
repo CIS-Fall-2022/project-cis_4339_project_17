@@ -359,8 +359,80 @@ Potential Errors:
 | 404 | Cannot GET; possible error is caused by incorrect spelling in request URL |
 
 ## 1.4 Getting a client by Search
-// add later
+```
+GET http://127.0.0.1:3000/primaryData/search/?query&searchBy=queryType
+    example (by phone number): http://127.0.0.1:3000/primaryData/search/?phoneNumbers.primaryPhone=222-222-2222&searchBy=number
 
+    example (by name -- BOTH first and last names must be used else the url will not work):  http://127.0.0.1:3000/primaryData/search/?firstName=Keanu&lastName=Reeves&searchBy=name 
+```
+
+Example Postman Response:
+```json
+[
+    {
+        "contact": {
+            "primaryNumber": "222-222-2222",
+            "email": "xyz@gmail.com",
+            "address_1": "9999 Test Street",
+            "address_2": "0000 Test Street",
+            "state": "Texas",
+            "zip": 12345,
+            "country": "United States"
+        },
+        "health": {
+            "height": 6,
+            "weight": 150,
+            "insurance": [
+                {
+                    "has_insurance": "true",
+                    "insurance_provider": "Test",
+                    "member_id": "testid1",
+                    "_id": "633ea25606fd2de5a48b6518"
+                }
+            ],
+            "vaccination_status": "Vaccinated",
+            "pregnancy_status": "Not Pregnant"
+        },
+        "income": {
+            "household_size": 1,
+            "monthly_income": 1000,
+            "other_income": 0,
+            "child_support": 0,
+            "financial_aid": 500
+        },
+        "education": {
+            "highest_completed": "Bachelors",
+            "school": [
+                {
+                    "school_name": "Test",
+                    "school_address": "Test Street",
+                    "state": "Texas",
+                    "major": "Computer Science",
+                    "degree_type": "Bachelors",
+                    "_id": "633ea25606fd2de5a48b6519"
+                }
+            ],
+            "certification": "None"
+        },
+        "_id": "c9530db0-455a-11ed-832e-e58f5e43cef0",
+        "client_id": 3,
+        "organization_id": 3,
+        "last_name": "CIS4339Last",
+        "first_name": "CIS4339First",
+        "gender": "Male",
+        "marital_status": "Single",
+        "birthday": "2000-01-01T00:00:00.000Z",
+        "ethnicity": "Hispanic",
+        "ssn": "123-456-7890",
+        "createdAt": "2022-10-06T09:39:34.548Z",
+        "updatedAt": "2022-10-06T09:39:34.548Z",
+        "__v": 0
+    }
+]
+```
+Example Terminal Response:
+
+GET /clientsData/search/?contact.primaryNumber=222-222-2222&searchBy=number 200 66.469 ms - 1097
 ## 1.5 Getting the information of the events for a single client
 ```
 GET http://127.0.0.1:3000/clientsData/events/:id

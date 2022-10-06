@@ -1,4 +1,4 @@
-// Version 1.4 Everything Working -- Jason Lu
+// Version 1.5 Everything Working -- Jason Lu
 // All routes working
 // Improved Console Logs and Errors
 // Added and verified code works for GET events signed up by a specific client.
@@ -50,7 +50,7 @@ router.get("/search/", (req, res, next) => {
         dbQuery = { first_name: { $regex: `^${req.query["first_name"]}`, $options: "i" }, last_name: { $regex: `^${req.query["last_name"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
-            "contacts.primaryNumber": { $regex: `^${req.query["contacts.primaryNumber"]}`, $options: "i" }
+            "contact.primaryNumber": { $regex: `^${req.query["contact.primaryNumber"]}`, $options: "i" }
         }
     };
     clientsdata.find(

@@ -1,4 +1,8 @@
 // Version 1.3 Everything Working -- Jason Lu
+// All routes working
+// Improved Console Logs and Errors
+// Added and verified code works for GET events signed up by a specific client.
+
 const express = require("express");
 const router = express.Router();
 

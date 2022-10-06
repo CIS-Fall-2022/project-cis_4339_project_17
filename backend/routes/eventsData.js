@@ -1,4 +1,7 @@
 // Version 1.3 Everything Working -- Jason Lu
+// All routes working
+// Improved Console Logs and Errors
+
 const express = require("express");
 const router = express.Router();
 

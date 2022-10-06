@@ -30,7 +30,7 @@ let clientsSchema = new Schema({
         type: String,
     },
     birthday: {
-        type: String,
+        type: Date,
     },
     ethnicity: {
         type: String,

@@ -25,7 +25,7 @@ let eventsSchema = new Schema({
         required: true
     },
     event_date: {
-        type: String,
+        type: Date,
     },
     //Make an array so that the client can input multiple activities
     activity: [{ 

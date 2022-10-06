@@ -33,9 +33,6 @@ router.get("/id/:id", (req, res, next) => {
     );
 });
 
-
-
-
 //POST
 router.post("/", (req, res, next) => {
     intakedata.create(
@@ -68,9 +65,8 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
-//DELETE person by ID -- Jason Lu 10/3/2022 9:44 PM
+//DELETE form by intake form ID
 router.delete('/:id', (req, res, next) => {
-    //mongoose will use _id of document
     intakedata.findOneAndRemove({ intake_form_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error);

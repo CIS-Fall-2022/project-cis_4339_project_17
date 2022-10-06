@@ -24,11 +24,8 @@ let intakeSchema = new Schema({
         type: Number,
         required: true
     },
-    start_date: {
-        type: String,
-    },
-    end_date: {
-        type: String,
+    event_date: {
+        type: Date,
     },
 },
     {

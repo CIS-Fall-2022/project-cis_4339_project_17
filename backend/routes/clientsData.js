@@ -27,7 +27,11 @@ router.get("/id/:id", (req, res, next) => {
         (error, data) => {
             if (error) {
                 return next(error);
-            } else {
+            }
+            else if (data === null) {
+                res.status(404).send('Client ID Not Found. Confirm Client ID.');
+            } 
+            else {
                 res.json(data);
             }
         }
@@ -70,7 +74,8 @@ router.post("/", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.send('Client Successfully Added');
+                console.log('Client Successfully Added');
             }
         }
     );
@@ -87,8 +92,13 @@ router.put("/:id", (req, res, next) => {
         (error, data) => {
             if (error) {
                 return next(error);
-            } else {
-                res.json(data);
+            }
+            else if (data === null) {
+                res.status(404).send('Client ID Not Found. Confirm Client ID.');
+            }
+            else {
+                res.send('Client Successfully Updated');
+                console.log('Client Successfully Updated');           
             }
         }
     );
@@ -100,10 +110,13 @@ router.delete('/:id', (req, res, next) => {
     clientsdata.findOneAndRemove({ client_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error);
-        } else {
-            res.status(200).json({
-                msg: data
-            });
+        } 
+        else if (data === null) {
+            res.status(404).send('Client ID Not Found. Confirm Client ID.');
+        }
+        else {
+            res.send('Client Successfully Deleted');
+            console.log('Client Successfully Deleted');           
         }
     });
 });

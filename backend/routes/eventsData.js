@@ -1,4 +1,4 @@
-// Version 1.1 Everything Working -- Jason Lu
+// Version 1.2 Everything Working -- Jason Lu
 const express = require("express");
 const router = express.Router();
 
@@ -23,7 +23,11 @@ router.get("/id/:id", (req, res, next) => {
     eventsdata.find({ event_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error)
-        } else {
+        }
+        else if (data === null) {
+            res.status(404).send('Event ID Not Found. Confirm Event ID.');
+        }  
+        else {
             res.json(data)
         }
     })
@@ -45,8 +49,10 @@ router.get("/search/", (req, res, next) => {
         dbQuery, 
         (error, data) => { 
             if (error) {
-                return next(error);
-            } else {
+                res.send('Search Did Not Match. Confirm Search Query');
+                console.log('Search Did Not Match. Confirm Search Query')
+            } 
+            else {
                 res.json(data);
             }
         }
@@ -58,7 +64,11 @@ router.get("/client/:id", (req, res, next) => {
 eventsdata.find({ client_id: req.params.id }, (error, data) => {
     if (error) {
         return next(error)
-    } else {
+    }
+    else if (data === null) {
+        res.status(404).send('Client ID Not Found. Confirm Client ID.');
+    } 
+    else {
         res.json(data)
     }
 })
@@ -71,8 +81,10 @@ router.post("/", (req, res, next) => {
         (error, data) => { 
             if (error) {
                 return next(error);
-            } else {
-                res.json(data);
+            } 
+            else {
+                res.send('Event Successfully Added');
+                console.log('Event Successfully Added')
             }
         }
     );
@@ -86,8 +98,13 @@ router.put("/:id", (req, res, next) => {
         (error, data) => {
             if (error) {
                 return next(error);
-            } else {
-                res.json(data);
+            } 
+            else if (data === null) {
+                res.status(404).send('Event ID Not Found. Confirm Event ID.');
+            }
+            else {
+            res.send('Event Successfully Updated');
+            console.log('Event Successfully Updated')
             }
         }
     );
@@ -103,22 +120,28 @@ router.put("/addAttendee/:id", (req, res, next) => {
         if (error) {
             return next(error);
         }
+        else if (data === null) {
+            res.status(404).send('Event ID Not Found. Confirm Event ID.');
+        }
         else {
-            res.json(data);
+            res.send('Attendee Successfully Added');
+            console.log('Attendee Successfully Added')
         }
     });
 });
 
-//DELETE person by ID -- Jason Lu 10/5/2022 5:13 AM
+//DELETE event by ID -- Jason Lu 10/5/2022 5:13 AM
 router.delete('/:id', (req, res, next) => {
-    //mongoose will use _id of document
     eventsdata.findOneAndRemove({ event_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error);
-        } else {
-            res.status(200).json({
-                msg: data
-            });
+        } 
+        else if (data === null) {
+            res.status(404).send('Event ID Not Found. Confirm Event ID.');
+        }
+        else {
+            res.send('Event Successfully Deleted');
+            console.log('Event Successfully Deleted');
         }
     });
 });

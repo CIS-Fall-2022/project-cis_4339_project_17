@@ -1,4 +1,4 @@
-// Version 1.2 Everything Working -- Jason Lu
+// Version 1.3 Everything Working -- Jason Lu
 const express = require("express");
 const router = express.Router();
 
@@ -61,18 +61,18 @@ router.get("/search/", (req, res, next) => {
 
 //GET events for which a client is signed up
 router.get("/client/:id", (req, res, next) => { 
-eventsdata.find({ client_id: req.params.id }, (error, data) => {
-    if (error) {
-        return next(error)
-    }
-    else if (data === null) {
-        res.status(404).send('Client ID Not Found. Confirm Client ID.');
-    } 
-    else {
-        res.json(data)
-    }
-})
-});
+    eventsdata.find({ client_id: req.params.id }, (error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else if (data === null) {
+            res.status(404).send('Client ID Not Found. Confirm Client ID.');
+        } 
+        else {
+            res.json(data)
+        }
+    })
+    });
 
 //POST
 router.post("/", (req, res, next) => { 

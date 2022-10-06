@@ -48,4 +48,22 @@ router.post("/", (req, res, next) => {
     organization.createdAt instanceof Date;
 });
 
+
+
+router.delete('/:id', (req, res, next) => {
+    //mongoose will use id of organization
+    organization.findOneAndRemove({ organization_id: req.params.id }, (error, data) => {
+        if (error) {
+            return next(error);
+        }
+        else if (data === null) {
+            res.status(404).send('Organization ID Not Found. Confirm Organization ID.');
+        }
+        else {
+            res.send('Organization Successfully Deleted');
+            console.log('Organization Successfully Deleted');
+        }
+    });
+});
+
 module.exports = router;

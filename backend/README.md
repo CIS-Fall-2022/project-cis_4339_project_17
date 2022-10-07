@@ -22,11 +22,13 @@ MONGO_URL = mongodb+srv://dinh1:cis4339@4339project.c0anf4a.mongodb.net/test
 # project-cis_4339_project_17
 
 # Project Overview
-
-
-
-
-
+<p>
+This project uses MongoDB, Express, and NodeJS. <br>
+ In order to get access to the database, you can use the MONGO_URL above and connect to Compass <br>
+ All the collections in the model schema are related with client_id and multiple information can be retrieved from the database using client_id. <br>
+ There were basic CRUD operations for each collection in the schema. <br>
+ Additional information will be retrieved through different endpoints in this project.
+ <p>
 
 
 #### 1. CLIENT CRUD OPERATIONS
@@ -34,7 +36,7 @@ MONGO_URL = mongodb+srv://dinh1:cis4339@4339project.c0anf4a.mongodb.net/test
 The API Documentation for the ClientData collection can be found at: 
 https://documenter.getpostman.com/view/23632811/2s83zfRR1J
 ```
-#### 2. EVENTS CRUD OPERATIONS (WIP)
+#### 2. EVENTS CRUD OPERATIONS
 ```
 The API Documentation for the EventsData collection can be found at:
 https://documenter.getpostman.com/view/17835609/2s83zfRR5i

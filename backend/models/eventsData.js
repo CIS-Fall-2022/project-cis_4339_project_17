@@ -33,25 +33,12 @@ let eventsSchema = new Schema({
     services: {
         type: Array
     },
-    //Make an array so that the client can input multiple activities
-    activity: [{ 
-        activity_type: {
-            type: String,
-        },
-        start_time: {
-            type: String,
-        },
-        end_time: {
-            type: String,
-        },
-        note: {
-            type: String,
-        },
-    }],
-
     //Embedded location information
     location: {
-        address: {
+        address_1: {
+            type: String,
+        },
+        address_2: {
             type: String,
         },
         city: { 
@@ -65,23 +52,9 @@ let eventsSchema = new Schema({
         }},
        
         //Make an array to allow the client to input multiple attendees
-    attendee: [{ 
-        attendee_id: {
-            type: Number
-        },   
-        last_name: {
-            type: String,
-        },
-        first_name: {
-            type: String
-        },
-        gender: {
-            type: String
-        },
-        phone_number: {
-            type: String,
-        }
-    }],
+    attendee: {
+        type: Array
+    },
 },
     {
         collection: 'eventsData'

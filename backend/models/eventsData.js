@@ -27,6 +27,9 @@ let eventsSchema = new Schema({
     event_date: {
         type: Date,
     },
+    description: {
+        type: String,
+    },
     //Make an array so that the client can input multiple activities
     activity: [{ 
         activity_type: {
@@ -57,6 +60,7 @@ let eventsSchema = new Schema({
         zip: {
             type: String,
         }},
+       
         //Make an array to allow the client to input multiple attendees
     attendee: [{ 
         attendee_id: {

@@ -8,49 +8,38 @@ let eventsSchema = new Schema({
         type: String,
         default: uuid.v1
     },
-    event_id: {
-        type: Number,
-        required: true
-    },
-    client_id: {
-        type: Number,
-        required: true
-    },
-    event_name: {
+    eventName: {
         type: String,
         required: true
-    },
-    organization_id:{
-        type: Number,
-        required: true
-    },
-    event_date: {
-        type: Date,
-    },
-    description: {
-        type: String,
     },
     services: {
         type: Array
     },
+    date: {
+        type: Date,
+    },
+    
+    
     //Embedded location information
-    location: {
-        address_1: {
+    address: {
+        line1: {
             type: String,
         },
-        address_2: {
+        line2: {
             type: String,
         },
         city: { 
             type: String,
         },
-        state: {
+        county: {
             type: String,
         },
         zip: {
             type: String,
         }},
-       
+    description: {
+        type: String,
+    },   
         //Make an array to allow the client to input multiple attendees
     attendee: {
         type: Array

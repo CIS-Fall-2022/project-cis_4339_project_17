@@ -30,6 +30,9 @@ let eventsSchema = new Schema({
     description: {
         type: String,
     },
+    services: {
+        type: Array
+    },
     //Make an array so that the client can input multiple activities
     activity: [{ 
         activity_type: {

@@ -48,7 +48,7 @@ export default {
     axios
       .get(
         import.meta.env.VITE_ROOT_API +
-          `/primarydata/id/${this.$route.params.id}`
+          `/clientsData/id/${this.$route.params.id}`
       )
       .then((resp) => {
         let data = resp.data[0];
@@ -69,7 +69,7 @@ export default {
     axios
       .get(
         import.meta.env.VITE_ROOT_API +
-          `/eventdata/client/${this.$route.params.id}`
+          `/eventsData/client/${this.$route.params.id}`
       )
       .then((resp) => {
         let data = resp.data;
@@ -80,7 +80,7 @@ export default {
           });
         });
       });
-    axios.get(import.meta.env.VITE_ROOT_API + `/eventdata`).then((resp) => {
+    axios.get(import.meta.env.VITE_ROOT_API + `/eventsData`).then((resp) => {
       let data = resp.data;
       for (let i = 0; i < data.length; i++) {
         this.eventData.push({
@@ -96,9 +96,18 @@ export default {
       return DateTime.fromISO(datetimeDB).plus({ days: 1 }).toLocaleString();
     },
     handleClientUpdate() {
-      let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
+      let apiURL = import.meta.env.VITE_ROOT_API + `/clientsData/${this.id}`;
       axios.put(apiURL, this.client).then(() => {
         alert("Update has been saved.");
+        this.$router.back().catch((error) => {
+          console.log(error);
+        });
+      });
+    },
+    handleClientDelete() {
+      let apiURL = import.meta.env.VITE_ROOT_API + `/clientsData/${this.id}`;
+      axios.delete(apiURL, this.client).then(() => {
+        alert("Delete has been saved.");
         this.$router.back().catch((error) => {
           console.log(error);
         });
@@ -332,6 +341,15 @@ export default {
               class="bg-red-700 text-white rounded"
             >Update Client</button>
           </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+          <div class="flex justify-between mt-10 mr-20">
+            <button
+              @click="handleClientDelete"
+              type="submit"
+              class="bg-red-700 text-white rounded"
+            >Delete Client</button>
+          </div>
+        </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
               type="reset"

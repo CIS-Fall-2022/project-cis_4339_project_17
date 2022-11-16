@@ -113,7 +113,7 @@ router.put("/:id", (req, res, next) => {
 
 //PUT add attendee to event
 router.put("/addAttendee/:id", (req, res, next) => {
-    eventsdata.findOneAndUpdate({event_id: req.params.id }, {
+    eventsdata.findOneAndUpdate({_id: req.params.id }, {
         $push: {
             attendee: req.body.attendee
         }

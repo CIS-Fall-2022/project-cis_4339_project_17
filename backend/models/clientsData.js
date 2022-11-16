@@ -41,6 +41,11 @@ let clientsSchema = new Schema({
             type: String
         },
     },
+    org_id: {
+        type: String,
+        requierd:true,
+        default: process.env.ORG
+    }
 },
     {
         collection: 'clientsData',

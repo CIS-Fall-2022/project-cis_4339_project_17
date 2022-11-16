@@ -44,6 +44,11 @@ let eventsSchema = new Schema({
     attendee: {
         type: Array
     },
+    org_id: {
+        type: String,
+        requierd:true,
+        default: process.env.ORG
+    }
 },
     {
         collection: 'eventsData'

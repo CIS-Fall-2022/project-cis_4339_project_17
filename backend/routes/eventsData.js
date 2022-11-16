@@ -42,12 +42,12 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { event_name: { $regex: `^${req.query["event_name"]}`, $options: "i" } }
+        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'date') {
        /* dbQuery = {
             date:  req.query["eventDate"]
         }*/
-        dbQuery = { event_date: { $regex: `^${req.query["event_date"]}`, $options: "i" } }
+        dbQuery = { eventDate: { $regex: `^${req.query["eventDate"]}`, $options: "i" } }
     };
     eventsdata.find( 
         dbQuery, 

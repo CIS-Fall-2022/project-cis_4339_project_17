@@ -44,10 +44,7 @@ router.get("/search/", (req, res, next) => {
     if (req.query["searchBy"] === 'name') {
         dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'date') {
-       /* dbQuery = {
-            date:  req.query["eventDate"]
-        }*/
-        dbQuery = { eventDate: { $regex: `^${req.query["eventDate"]}`, $options: "i" } }
+        dbQuery = { date:  req.query["eventDate"], org_id: process.env.ORG}
     };
     eventsdata.find( 
         dbQuery, 
@@ -152,50 +149,29 @@ router.delete('/:id', (req, res, next) => {
 });
 
 
-// **We could not get the graph backend to be functional.
-// **We will attempt to fix this for the frontend.
 
-// //GET for Graph Data
-// router.get('/total/:id', (req, res, next) => {
-//     eventsdata.aggregate([
-//         { $match: { event_id: req.params.id } },
-//         { $project: { _id: 0, event_id : 1} },
-//         { $group: { _id: "$attendee.attendee_id" } }, //only distinct
-//         { $count: "total" }
-//         // instead of $count could also use:
-//         //{ $group: { _id: null, myCount: { $sum: 1 } } },
-//         //{ $project: { _id: 0 } }
-//     ], (error, data) => {
-//         if (error) {
-//             return next(error)
-//         } else {
-//             res.json(data);
-//         }
-//     });
-// });
-
-/* //GET clients attending events in the past 2 months
-//Cite for date agrergation: https://stackoverflow.com/questions/58232356/mongodb-subtract-months-from-date-with-value-from-database
-router.get("/pastAttendees/", (req, res, next) => { 
-    eventsdata.find(
-        {
-            subtractedDate: {
-            $gte:new Date(new Date().setMonth(new Date().getMonth() - 2)),
-            $lt:new Date()},
-            org_id: process.env.ORG,
-        },
-        {
-            eventName:1,
-            date:1,
-            attendee:{$size:"$attendee"}
-        },
-        (error, data) => { 
-            if (error) {
-                return next(error);
-            } else {
-                res.json(data);
+// Counts total number of event attendees for each event
+router.get("/previousAttendees", (req, res, next) => {
+    var checkDate = new Date()
+    
+    eventsdata.aggregate([
+            {$match: {date: {
+                $gt : new Date(checkDate.setMonth(checkDate.getMonth() - 2)),
+                $lt : new Date()
+            }} },
+            {$group: {
+                _id: "$eventName",  
+                total: { $sum: { $size:"$attendee"}},
+                }
             }
-        }
-    );
-}); */
+        ],
+            (error, data) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    res.json(data);
+                }
+            }
+        )
+});
 module.exports = router;

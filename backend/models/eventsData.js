@@ -17,6 +17,7 @@ let eventsSchema = new Schema({
     },
     date: {
         type: Date,
+        required: true,
     },
     
     

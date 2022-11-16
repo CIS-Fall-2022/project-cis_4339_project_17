@@ -27,7 +27,7 @@ router.get("/", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     clientsdata.find(
-        { client_id: req.params.id },
+        {_id: req.params.id },
         (error, data) => {
             if (error) {
                 return next(error);

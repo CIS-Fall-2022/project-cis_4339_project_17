@@ -24,7 +24,7 @@ router.get("/", (req, res, next) => {
 
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => { 
-    eventsdata.find({ event_id: req.params.id }, (error, data) => {
+    eventsdata.find({_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error)
         }

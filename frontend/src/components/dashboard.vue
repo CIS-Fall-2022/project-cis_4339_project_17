@@ -13,7 +13,7 @@
       <div class="ml-10"></div>
       <div class="flex flex-col col-span-2">
         <div class="ml-10">
-          <h2 class="text-2xl font-bold m-2">Attendance per event of the last 2 months</h2>
+          <h2 class="text-2xl font-bold m-2">Event Attendance For Prior Two Months</h2>
           <AttendanceChart
             v-if="!loading && !error"
             :label="labels"
@@ -29,7 +29,7 @@
       <div class="ml-10"></div>
       <div class="flex flex-col col-span-2">
         <div class="ml-10">
-          <h2 class="text-2xl font-bold m-2">Table</h2>
+          <h2 class="text-2xl font-bold m-2">Events Table (Data Displayed In Chart)</h2>
         </div>
         <table class="min-w-full shadow-md rounded">
           <thead class="bg-gray-50 text-xl">

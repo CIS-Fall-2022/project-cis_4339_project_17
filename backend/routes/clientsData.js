@@ -11,6 +11,7 @@ let { clientsdata } = require("../models/clientsData");
 let { eventsdata } = require("../models/eventsData");
 
 //GET all entries
+
 router.get("/", (req, res, next) => {
     clientsdata.find(
         (error, data) => {
@@ -27,14 +28,14 @@ router.get("/", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     clientsdata.find(
-        {_id: req.params.id },
+        { _id: req.params.id },
         (error, data) => {
             if (error) {
                 return next(error);
             }
             else if (data === null) {
                 res.status(404).send('Client ID Not Found. Confirm Client ID.');
-            } 
+            }
             else {
                 res.json(data);
             }
@@ -43,7 +44,8 @@ router.get("/id/:id", (req, res, next) => {
 });
 
 //GET entries based on search query
-//Ex: '...?firstName=Bob&lastName=&searchBy=name' 
+//Ex: '...?firstName=Bob&lastName=&searchBy=name'
+//Client name will be retrieved along with phone number and city
 router.get("/search/", (req, res, next) => {
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
@@ -73,14 +75,14 @@ router.get("/events/:id", (req, res, next) => {
         }
         else if (data === null) {
             res.status(404).send('Client ID Not Found. Confirm Client ID.');
-        } 
+        }
         else {
             res.json(data)
         }
     })
-    });
+});
 
-//POST
+//POST client 
 router.post("/", (req, res, next) => {
     clientsdata.create(
         req.body,
@@ -112,7 +114,7 @@ router.put("/:id", (req, res, next) => {
             }
             else {
                 res.send('Client Successfully Updated');
-                console.log('Client Successfully Updated');           
+                console.log('Client Successfully Updated');
             }
         }
     );
@@ -124,13 +126,13 @@ router.delete('/:id', (req, res, next) => {
     clientsdata.findOneAndRemove({ client_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error);
-        } 
+        }
         else if (data === null) {
             res.status(404).send('Client ID Not Found. Confirm Client ID.');
         }
         else {
             res.send('Client Successfully Deleted');
-            console.log('Client Successfully Deleted');           
+            console.log('Client Successfully Deleted');
         }
     });
 });

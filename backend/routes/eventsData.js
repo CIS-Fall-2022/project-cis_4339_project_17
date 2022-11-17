@@ -7,11 +7,11 @@ const express = require("express");
 const router = express.Router();
 
 //importing data model schemas
-let { eventsdata } = require("../models/eventsData"); 
+let { eventsdata } = require("../models/eventsData");
 
 //GET all entries
-router.get("/", (req, res, next) => { 
-    eventsdata.find( 
+router.get("/", (req, res, next) => {
+    eventsdata.find(
         (error, data) => {
             if (error) {
                 return next(error);
@@ -23,14 +23,14 @@ router.get("/", (req, res, next) => {
 });
 
 //GET single entry by ID
-router.get("/id/:id", (req, res, next) => { 
-    eventsdata.find({_id: req.params.id }, (error, data) => {
+router.get("/id/:id", (req, res, next) => {
+    eventsdata.find({ _id: req.params.id }, (error, data) => {
         if (error) {
             return next(error)
         }
         else if (data === null) {
             res.status(404).send('Event ID Not Found. Confirm Event ID.');
-        }  
+        }
         else {
             res.json(data)
         }
@@ -39,20 +39,22 @@ router.get("/id/:id", (req, res, next) => {
 
 //GET entries based on search query
 //Ex: '...?eventName=Food&searchBy=name' 
-router.get("/search/", (req, res, next) => { 
+//Will retrieve the event either by name of event
+//or by the date of the event 
+router.get("/search/", (req, res, next) => {
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
         dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'date') {
-        dbQuery = { date:  req.query["eventDate"], org_id: process.env.ORG}
+        dbQuery = { date: req.query["eventDate"], org_id: process.env.ORG }
     };
-    eventsdata.find( 
-        dbQuery, 
-        (error, data) => { 
+    eventsdata.find(
+        dbQuery,
+        (error, data) => {
             if (error) {
                 res.send('Search Did Not Match. Confirm Search Query');
                 console.log('Search Did Not Match. Confirm Search Query')
-            } 
+            }
             else {
                 res.json(data);
             }
@@ -61,28 +63,28 @@ router.get("/search/", (req, res, next) => {
 });
 
 //GET events for which a client is signed up
-router.get("/client/:id", (req, res, next) => { 
+router.get("/client/:id", (req, res, next) => {
     eventsdata.find({ client_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error)
         }
         else if (data === null) {
             res.status(404).send('Client ID Not Found. Confirm Client ID.');
-        } 
+        }
         else {
             res.json(data)
         }
     })
-    });
+});
 
-//POST
-router.post("/", (req, res, next) => { 
-    eventsdata.create( 
-        req.body, 
-        (error) => { 
+//POST Event
+router.post("/", (req, res, next) => {
+    eventsdata.create(
+        req.body,
+        (error) => {
             if (error) {
                 return next(error);
-            } 
+            }
             else {
                 res.send('Event Successfully Added');
                 console.log('Event Successfully Added')
@@ -91,7 +93,7 @@ router.post("/", (req, res, next) => {
     );
 });
 
-//PUT
+//PUT(update event by ID)
 router.put("/:id", (req, res, next) => {
     eventsdata.findOneAndUpdate(
         { event_id: req.params.id },
@@ -99,13 +101,13 @@ router.put("/:id", (req, res, next) => {
         (error, data) => {
             if (error) {
                 return next(error);
-            } 
+            }
             else if (data === null) {
                 res.status(404).send('Event ID Not Found. Confirm Event ID.');
             }
             else {
-            res.send('Event Successfully Updated');
-            console.log('Event Successfully Updated')
+                res.send('Event Successfully Updated');
+                console.log('Event Successfully Updated')
             }
         }
     );
@@ -113,7 +115,7 @@ router.put("/:id", (req, res, next) => {
 
 //PUT add attendee to event
 router.put("/addAttendee/:id", (req, res, next) => {
-    eventsdata.findOneAndUpdate({_id: req.params.id }, {
+    eventsdata.findOneAndUpdate({ _id: req.params.id }, {
         $push: {
             attendee: req.body.attendee
         }
@@ -137,7 +139,7 @@ router.delete('/:id', (req, res, next) => {
     eventsdata.findOneAndRemove({ event_id: req.params.id }, (error, data) => {
         if (error) {
             return next(error);
-        } 
+        }
         else if (data === null) {
             res.status(404).send('Event ID Not Found. Confirm Event ID.');
         }
@@ -153,25 +155,30 @@ router.delete('/:id', (req, res, next) => {
 // Counts total number of event attendees for each event
 router.get("/previousAttendees", (req, res, next) => {
     var checkDate = new Date()
-    
+
     eventsdata.aggregate([
-            {$match: {date: {
-                $gt : new Date(checkDate.setMonth(checkDate.getMonth() - 2)),
-                $lt : new Date()
-            }} },
-            {$group: {
-                _id: "$eventName",  
-                total: { $sum: { $size:"$attendee"}},
+        {
+            $match: {
+                date: {
+                    $gt: new Date(checkDate.setMonth(checkDate.getMonth() - 2)),
+                    $lt: new Date()
                 }
             }
-        ],
-            (error, data) => {
-                if (error) {
-                    return next(error);
-                } else {
-                    res.json(data);
-                }
+        },
+        {
+            $group: {
+                _id: "$eventName",
+                total: { $sum: { $size: "$attendee" } },
             }
-        )
+        }
+    ],
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                res.json(data);
+            }
+        }
+    )
 });
 module.exports = router;

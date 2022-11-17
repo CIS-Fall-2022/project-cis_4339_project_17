@@ -10,14 +10,18 @@ let clientsSchema = new Schema({
     },
     firstName: {
         type: String,
+        required: true,
     },
     middleName: {
         type: String,
     },
     lastName: {
         type: String,
+        required: true,
     },
     //Embedded contact information
+    //set up so that valid email format needed for insert
+    //on frontend
     email: {
         type: String,
     },
@@ -43,7 +47,7 @@ let clientsSchema = new Schema({
     },
     org_id: {
         type: String,
-        requierd:true,
+        required: true,
         default: process.env.ORG
     }
 },

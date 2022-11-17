@@ -1,35 +1,25 @@
 <template>
   <main>
     <div>
-      <h1
-        class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10"
-      >
+      <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">
         Welcome
       </h1>
     </div>
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
-    >
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
       <div class="ml-10"></div>
       <div class="flex flex-col col-span-2">
         <div class="ml-10">
-          <h2 class="text-2xl font-bold m-2">Event Attendance For Prior Two Months</h2>
-          <AttendanceChart
-            v-if="!loading && !error"
-            :label="labels"
-            :chart-data="attendance"
-          ></AttendanceChart>
+          <h2 class="text-2xl font-bold m-2" style="text-align: center;">Event Attendance For Prior Two Months</h2>
+          <AttendanceChart v-if="!loading && !error" :label="labels" :chart-data="attendance"></AttendanceChart>
         </div>
       </div>
     </div>
     <!-- Display Found Data -->
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 m-3"
-    >
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 m-3">
       <div class="ml-10"></div>
       <div class="flex flex-col col-span-2">
         <div class="ml-10">
-          <h2 class="text-2xl font-bold m-2">Events Table (Data Displayed In Chart)</h2>
+          <h2 class="text-2xl font-bold m-2" style="text-align: center;">Events Table (Data Displayed In Chart)</h2>
         </div>
         <table class="min-w-full shadow-md rounded">
           <thead class="bg-gray-50 text-xl">

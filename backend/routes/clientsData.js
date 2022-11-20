@@ -13,7 +13,7 @@ let { eventsdata } = require("../models/eventsData");
 //GET all entries
 
 router.get("/", (req, res, next) => {
-    clientsdata.find({org_id: process.env.organization},
+    clientsdata.find({ org_id: process.env.organization },
         (error, data) => {
             if (error) {
                 return next(error);
@@ -49,7 +49,7 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => {
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } , org_id: process.env.organization}
+        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" }, org_id: process.env.organization }
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
             "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, org_id: provess.env.organization
@@ -69,7 +69,7 @@ router.get("/search/", (req, res, next) => {
 
 //GET events for a single client
 router.get("/events/:id", (req, res, next) => {
-    eventsdata.find({ client_id: req.params.id , org_id: process.env.organization}, (error, data) => {
+    eventsdata.find({ client_id: req.params.id, org_id: process.env.organization }, (error, data) => {
         if (error) {
             return next(error)
         }

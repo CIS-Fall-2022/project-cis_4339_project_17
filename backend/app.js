@@ -34,12 +34,12 @@ app.use(morgan("dev"));
 const eventsDataRoute = require('./routes/eventsData');
 const clientsDataRoute = require('./routes/clientsData');
 const organizationRoute = require('./routes/organization');
-const intakeDataRoute = require('./routes/intakeData');
+
 //setup middle ware for routes
 app.use('/eventsData', eventsDataRoute)
 app.use('/clientsData', clientsDataRoute)
 app.use('/organization', organizationRoute)
-app.use('/intakeData', intakeDataRoute);
+
 
 
 app.listen(PORT, () => {

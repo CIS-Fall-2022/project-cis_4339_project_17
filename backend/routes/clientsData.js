@@ -38,6 +38,7 @@ router.get("/id/:id", (req, res, next) => {
             }
             else {
                 res.json(data);
+                console.log('Successfully retrieved by Client ID');
             }
         }
     );
@@ -63,6 +64,7 @@ router.get("/search/", (req, res, next) => {
                 return next(error);
             } else {
                 res.json(data);
+                console.log('Successful Retrieval');
             }
         }
     );

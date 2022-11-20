@@ -63,7 +63,7 @@ router.get("/search/", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.json(data)
                 console.log('Successful Retrieval');
             }
         }
@@ -80,7 +80,8 @@ router.get("/events/:id", (req, res, next) => {
             res.status(404).send('Client ID Not Found. Confirm Client ID.');
         }
         else {
-            res.json(data)
+            res.json(data);
+            console.log('Client Found');
         }
     })
 });

@@ -17,6 +17,7 @@ router.get("/id/:id", (req, res, next) => {
             }
             else {
                 res.json(data);
+                console.log('Success, Organization found')
             }
         }
     );
@@ -48,6 +49,7 @@ router.get("/orgname", (req, res, next) => {
             }
             else {
                 res.json(data);
+                console.log('Retrieval Successful');
             }
         }
     );

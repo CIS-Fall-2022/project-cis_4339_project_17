@@ -11,11 +11,12 @@ let { eventsdata } = require("../models/eventsData");
 
 //GET all entries
 router.get("/", (req, res, next) => {
-    eventsdata.find({org_id: process.env.organization},
+    eventsdata.find({ org_id: process.env.organization },
         (error, data) => {
             if (error) {
                 return next(error);
             } else {
+                console.log("Get response success! ");
                 res.json(data);
             }
         }
@@ -57,6 +58,7 @@ router.get("/search/", (req, res, next) => {
             }
             else {
                 res.json(data);
+                console.log('Successful Retrieval');
             }
         }
     );
@@ -72,7 +74,8 @@ router.get("/client/:id", (req, res, next) => {
             res.status(404).send('Client ID Not Found. Confirm Client ID.');
         }
         else {
-            res.json(data)
+            res.json(data);
+            console.log('Client Found');
         }
     })
 });
@@ -158,11 +161,12 @@ router.get("/previousAttendees", (req, res, next) => {
 
     eventsdata.aggregate([
         {
-            $match: { org_id: process.env.organization,
+            $match: {
+                org_id: process.env.organization,
                 date: {
                     $gt: new Date(checkDate.setMonth(checkDate.getMonth() - 2)),
                     $lt: new Date(),
-                    
+
                 }
             }
         },
@@ -178,6 +182,7 @@ router.get("/previousAttendees", (req, res, next) => {
                 return next(error);
             } else {
                 res.json(data);
+                console.log('Count Successful');
             }
         }
     )

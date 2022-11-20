@@ -11,7 +11,7 @@ let { eventsdata } = require("../models/eventsData");
 
 //GET all entries
 router.get("/", (req, res, next) => {
-    eventsdata.find(
+    eventsdata.find({org_id: process.env.organization},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -24,7 +24,7 @@ router.get("/", (req, res, next) => {
 
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
-    eventsdata.find({ _id: req.params.id }, (error, data) => {
+    eventsdata.find({ _id: req.params.id, org_id: process.env.organization }, (error, data) => {
         if (error) {
             return next(error)
         }
@@ -44,9 +44,9 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => {
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
+        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" }, org_id: process.env.organization }
     } else if (req.query["searchBy"] === 'date') {
-        dbQuery = { date: req.query["eventDate"], org_id: process.env.ORG }
+        dbQuery = { date: req.query["eventDate"], org_id: process.env.organization }
     };
     eventsdata.find(
         dbQuery,
@@ -64,7 +64,7 @@ router.get("/search/", (req, res, next) => {
 
 //GET events for which a client is signed up
 router.get("/client/:id", (req, res, next) => {
-    eventsdata.find({ client_id: req.params.id }, (error, data) => {
+    eventsdata.find({ client_id: req.params.id, org_id: process.env.organization }, (error, data) => {
         if (error) {
             return next(error)
         }
@@ -115,7 +115,7 @@ router.put("/:id", (req, res, next) => {
 
 //PUT add attendee to event
 router.put("/addAttendee/:id", (req, res, next) => {
-    eventsdata.findOneAndUpdate({ _id: req.params.id }, {
+    eventsdata.findOneAndUpdate({ _id: req.params.id, org_id: process.env.organization }, {
         $push: {
             attendee: req.body.attendee
         }
@@ -136,7 +136,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
 
 //DELETE event by ID -- Jason Lu 10/5/2022 5:13 AM
 router.delete('/:id', (req, res, next) => {
-    eventsdata.findOneAndRemove({ event_id: req.params.id }, (error, data) => {
+    eventsdata.findOneAndRemove({ event_id: req.params.id, org_id: process.env.organization }, (error, data) => {
         if (error) {
             return next(error);
         }
@@ -158,10 +158,11 @@ router.get("/previousAttendees", (req, res, next) => {
 
     eventsdata.aggregate([
         {
-            $match: {
+            $match: { org_id: process.env.organization,
                 date: {
                     $gt: new Date(checkDate.setMonth(checkDate.getMonth() - 2)),
-                    $lt: new Date()
+                    $lt: new Date(),
+                    
                 }
             }
         },

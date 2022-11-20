@@ -8,20 +8,10 @@ let organizationSchema = new Schema({
         type: String,
         default: uuid.v1
     },
-    organization_id: {
-        type: Number,
-        required: true
-    },
-    client_id: {
-        type: Number,
-        required: true
-    },
     organization_name: {
         type: String,
     },
-    organization_desc: {
-        type: String,
-    },
+
 },
     {
         collection: 'organization',

@@ -30,8 +30,8 @@
           </thead>
           <tbody class="divide-y divide-gray-300">
             <tr v-for="event in queryData" :key="event._id">
-              <td class="p-2 text-left">{{ event._id }}</td>
-              <td class="p-2 text-left">{{ event.total }}</td>
+              <td class="p-2 text-left">{{ event.eventName }}</td>
+              <td class="p-2 text-left">{{ event.attendees[0] }}</td>
             </tr>
           </tbody>
         </table>

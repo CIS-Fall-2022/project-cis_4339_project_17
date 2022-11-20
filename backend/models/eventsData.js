@@ -48,7 +48,7 @@ let eventsSchema = new Schema({
     org_id: {
         type: String,
         requierd:true,
-        default: process.env.ORG
+        default: process.env.organization
     }
 },
     {

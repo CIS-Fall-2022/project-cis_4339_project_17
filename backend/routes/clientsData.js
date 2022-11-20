@@ -13,7 +13,7 @@ let { eventsdata } = require("../models/eventsData");
 //GET all entries
 
 router.get("/", (req, res, next) => {
-    clientsdata.find(
+    clientsdata.find({org_id: process.env.organization},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -28,7 +28,7 @@ router.get("/", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     clientsdata.find(
-        { _id: req.params.id },
+        { _id: req.params.id, org_id: process.env.organization },
         (error, data) => {
             if (error) {
                 return next(error);
@@ -49,10 +49,10 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => {
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } }
+        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } , org_id: process.env.organization}
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
-            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }
+            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, org_id: provess.env.organization
         }
     };
     clientsdata.find(
@@ -69,7 +69,7 @@ router.get("/search/", (req, res, next) => {
 
 //GET events for a single client
 router.get("/events/:id", (req, res, next) => {
-    eventsdata.find({ client_id: req.params.id }, (error, data) => {
+    eventsdata.find({ client_id: req.params.id , org_id: process.env.organization}, (error, data) => {
         if (error) {
             return next(error)
         }
@@ -103,7 +103,7 @@ router.post("/", (req, res, next) => {
 //PUT update (make sure req body doesn't have the id)
 router.put("/:id", (req, res, next) => {
     clientsdata.findOneAndUpdate(
-        { client_id: req.params.id },
+        { _id: req.params.id, org_id: process.env.organization },
         req.body,
         (error, data) => {
             if (error) {
@@ -123,7 +123,7 @@ router.put("/:id", (req, res, next) => {
 //DELETE person by ID -- Jason Lu 10/3/2022 9:44 PM
 router.delete('/:id', (req, res, next) => {
     //mongoose will use _id of document
-    clientsdata.findOneAndRemove({ client_id: req.params.id }, (error, data) => {
+    clientsdata.findOneAndRemove({ _id: req.params.id, org_id: process.env.organization }, (error, data) => {
         if (error) {
             return next(error);
         }

@@ -52,7 +52,8 @@ router.get("/search/", (req, res, next) => {
         dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" }, org_id: process.env.organization }
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
-            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, org_id: provess.env.organization
+            //corrected ord_id: process spelling error, working now
+            "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }, org_id: process.env.organization
         }
     };
     clientsdata.find(

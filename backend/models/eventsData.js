@@ -19,8 +19,8 @@ let eventsSchema = new Schema({
         type: Date,
         required: true,
     },
-    
-    
+
+
     //Embedded location information
     address: {
         line1: {
@@ -29,7 +29,7 @@ let eventsSchema = new Schema({
         line2: {
             type: String,
         },
-        city: { 
+        city: {
             type: String,
         },
         county: {
@@ -37,17 +37,18 @@ let eventsSchema = new Schema({
         },
         zip: {
             type: String,
-        }},
+        }
+    },
     description: {
         type: String,
-    },   
-        //Make an array to allow the client to input multiple attendees
+    },
+    //Make an array to allow the client to input multiple attendees
     attendee: {
         type: Array
     },
     org_id: {
         type: String,
-        requierd:true,
+        required: true,
         default: process.env.organization
     }
 },

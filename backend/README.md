@@ -12,6 +12,11 @@ This implementation is for NodeJS based on [Express](https://expressjs.com/) and
 Setup a .env file with the following variables, e.g.:
 ```
 MONGO_URL = mongodb+srv://dinh1:cis4339@4339project.c0anf4a.mongodb.net/test
+organization = f3d876c0-6877-11ed-87c8-87b65ebdbe38  #Org A
+#f92a2880-6877-11ed-87c8-87b65ebdbe38 #Org C
+#f706ac40-6877-11ed-87c8-87b65ebdbe38 #Org B
+
+PORT = 3000
 ```
 
 ### Compiles and hot-reloads for development
